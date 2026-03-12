@@ -10,6 +10,7 @@ class mqConsumer(mqConsumerInterface):
         self.info = {}
         self.setupRMQConnection()
     
+    
     def setupRMQConnection(self) -> None:
         # Set-up Connection to RabbitMQ service
         conParams = pika.URLParameters(os.environ['AMQP_URL'])
@@ -33,6 +34,7 @@ class mqConsumer(mqConsumerInterface):
         self.info['channel'] = channel
         self.info['connection'] = connection
     
+
     def on_message_callback(
         self, channel, method_frame, header_frame, body
     ) -> None:
@@ -42,12 +44,14 @@ class mqConsumer(mqConsumerInterface):
         message = json.loads(body)
         print(message)
 
+
     def startConsuming(self) -> None:
         # Print " [*] Waiting for messages. To exit press CTRL+C"
         print(" [*] Waiting for messages. To exit press CTRL+C")
         # Start consuming messages
         self.info['channel'].start_consuming()
     
+
     def __del__(self) -> None:
         # Print "Closing RMQ connection on destruction"
         print("Closing RMQ connection on destruction")
