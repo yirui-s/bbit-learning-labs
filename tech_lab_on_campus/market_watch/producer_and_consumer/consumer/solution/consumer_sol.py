@@ -10,7 +10,7 @@ class mqConsumer(mqConsumerInterface):
         self.info = {}
         self.setupRMQConnection()
     
-    
+
     def setupRMQConnection(self) -> None:
         # Set-up Connection to RabbitMQ service
         conParams = pika.URLParameters(os.environ['AMQP_URL'])
@@ -41,8 +41,7 @@ class mqConsumer(mqConsumerInterface):
         # Acknowledge message
         channel.basic_ack(method_frame.delivery_tag, False)
         #Print message (The message is contained in the body parameter variable)
-        message = json.loads(body)
-        print(message)
+        print(body)
 
 
     def startConsuming(self) -> None:
